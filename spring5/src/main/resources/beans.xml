@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="address" class="com.coderzoe.entity.Address">
+        <property name="address" value="天津"/>
+    </bean>
+    <bean id="student" class="com.coderzoe.entity.Student">
+        <!-- 普通注入 -->
+        <property name="name" value="yhs"/>
+        <!-- 普通Bean注入 -->
+        <property name="address" ref="address"/>
+        <!-- 数组注入 -->
+        <property name="lessons">
+            <array>
+                <value>高数</value>
+                <value>数据结构</value>
+                <value>计组</value>
+                <value>操作系统</value>
+                <value>计网</value>
+            </array>
+        </property>
+        <!-- List注入 -->
+        <property name="hobbies">
+            <list>
+                <value>打球</value>
+                <value>编程</value>
+                <value>旅游</value>
+            </list>
+        </property>
+        <!-- Map注入 -->
+        <property name="card">
+            <map>
+                <entry key="yhs" value="yhsa"/>
+                <entry key="yhs1" value="yhsa1"/>
+                <entry key="yhs2" value="yhsa2"/>
+                <entry key="yhs2" value="yhsa3"/>
+                <entry key="yhs4" value="yhsa4"/>
+                <entry key="yhs5" value="yhsa5"/>
+            </map>
+        </property>
+        <!-- Set注入 -->
+        <property name="games">
+            <set>
+                <value>魔兽</value>
+                <value>炉石</value>
+                <value>守望</value>
+            </set>
+        </property>
+        <!-- Null注入 -->
+        <property name="wife">
+            <null/>
+        </property>
+        <!-- properties注入 -->
+        <property name="info">
+            <props>
+                <prop key="jdbc">jdbc:mysql://localhost:3306/smbms?useSSL=false</prop>
+                <prop key="name">root</prop>
+                <prop key="password">root</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 导入context约束 使用注解 开启注解自动装配 -->
+    <context:annotation-config/>
+
+    <bean id="cat" class="com.coderzoe.entity.Cat"/>
+    <bean id="dog" class="com.coderzoe.entity.Dog"/>
+
+    <bean id="person" class="com.coderzoe.entity.Person">
+        <property name="cat" ref="cat"/>
+        <property name="dog" ref="dog"/>
+        <property name="name" value="yhs"/>
+    </bean>
+
+
+    <!-- byName 在容器中自动查找 和自己对象set方法后面的值对应的beanid dog或cat
+        如果名字bean id不同则找不到 并且需要id唯一-->
+    <!-- byType 在容器中自动查找 和自己对象属性类型相同的bean
+        如果包含多于一个的相同类型的bean class  就会报错-->
+    <bean id="person2" class="com.coderzoe.entity.Person" autowire="byType">
+        <property name="name" value="yhs2"/>
+    </bean>
+
+    <!-- 使用注解自动装配 -->
+    <bean id="person3" class="com.coderzoe.entity.Person"/>
+</beans>

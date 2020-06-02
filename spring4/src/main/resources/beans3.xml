@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        使用Spring创建对象在Spring中这些都成为bean
+    -->
+    <bean id="user" class="com.coderzoe.entity.User">
+        <property name="name" value="yhs"/>
+    </bean>
+
+    <!-- 有参构造 -->
+    <bean id="user2" class="com.coderzoe.entity.User">
+        <constructor-arg name="name" value="yhs2"/>
+    </bean>
+
+    <!-- import标签 一般用于团队开发使用 它可以将多个配置文件 导入合并为一个 -->
+</beans>
