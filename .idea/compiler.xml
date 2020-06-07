@@ -6,7 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring10" />
+        <module name="spring13" />
         <module name="spring1" />
+        <module name="spring12" />
+        <module name="spring2" />
         <module name="spring9" />
         <module name="spring8" />
         <module name="spring7" />
@@ -14,12 +18,11 @@
         <module name="spring5" />
         <module name="spring4" />
         <module name="spring3" />
-        <module name="spring2" />
+        <module name="spring11" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="spring03" target="1.5" />
-      <module name="spring3" target="1.5" />
+      <module name="spring3" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
