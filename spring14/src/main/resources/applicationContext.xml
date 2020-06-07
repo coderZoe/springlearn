@@ -2,10 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/context/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/context/spring-aop.xsd">
 
     <!-- 通过Spring配置数据库的数据源 Spring-jdbc -->
 
@@ -25,7 +31,7 @@
      -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="../../../../spring13/src/main/resources/mybatis-config.xml"/>
+        <property name="configLocation" value="mybatis-config.xml"/>
     </bean>
 
     <!-- 通过上一步得到的SqlSessionFactory 构造我们的sqlSession类 -->
@@ -35,9 +41,32 @@
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
-
-    <bean id="userMapperImpl2" class="com.coderzoe.dao.UserMapperImpl2">
-        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    <!--  将事务管理注入Spring  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
+
+    <!--  将事务管理配置成切面  -->
+    <!--  将上面注入的事务管理引入这里 然后构造切面 -->
+    <tx:advice id="advice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--
+                isolation:DEFAULT    :事务的隔离级别.
+                propagation            :事务的传播行为.
+                read-only            :false.不是只读
+                timeout                :-1
+                no-rollback-for        :发生哪些异常不回滚
+                rollback-for        :发生哪些异常回滚事务
+             -->
+            <tx:method name="transfer"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置AOP 切入点加切面 -->
+    <aop:config>
+        <aop:pointcut id="pointCut" expression="execution(public * com.coderzoe.dao.UserMapperImpl.*(..))"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="pointCut"/>
+    </aop:config>
+
     <context:component-scan base-package="com.coderzoe"/>
 </beans>

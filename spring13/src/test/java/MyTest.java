@@ -1,10 +1,7 @@
 import com.coderzoe.dao.UserDao;
-import com.coderzoe.dao.UserMapperImpl;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * @author yhs
@@ -17,5 +14,11 @@ public class MyTest {
     public void test1(){
         UserDao userMapperImpl = context.getBean("userMapperImpl", UserDao.class);
         System.out.println(userMapperImpl.getUsers());
+    }
+
+    @Test
+    public void test2(){
+        UserDao userMapperImpl2 = context.getBean("userMapperImpl2", UserDao.class);
+        System.out.println(userMapperImpl2.getUsers());
     }
 }
